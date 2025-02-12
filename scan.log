@@ -1,0 +1,41 @@
+[2025-02-12T16:21:36Z INFO  port_scanner::core::port] 🎯 Port 5000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:36Z INFO  port_scanner::core::port] 🎯 Port 7000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:36Z INFO  port_scanner::core::port] 🎯 Port 10000 (msty-loca 14424 (Started: Mon Feb 10 15:14:59 2025)) open - No banner received
+[2025-02-12T16:21:36Z INFO  port_scanner::core::port] 🎯 Port 15611 (Postman 1296 (Started: Sat Feb  8 16:41:31 2025)) open - No banner received
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] 🎯 Port 63643 (GitHub 37222 (Started: Tue Feb 11 03:11:58 2025)) open - No banner received
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] 🎯 Port 64994 (rapportd 1037 (Started: Sat Feb  8 16:41:06 2025)) open - Banner: 
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] New open port detected: 5000: 5000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] New open port detected: 7000: 7000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] New open port detected: 10000: 10000 (msty-loca 14424 (Started: Mon Feb 10 15:14:59 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] New open port detected: 15611: 15611 (Postman 1296 (Started: Sat Feb  8 16:41:31 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] New open port detected: 63643: 63643 (GitHub 37222 (Started: Tue Feb 11 03:11:58 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] New open port detected: 64994: 64994 (rapportd 1037 (Started: Sat Feb  8 16:41:06 2025)) -> 
+[2025-02-12T16:21:37Z INFO  port_scanner::core::port] ⏳ Waiting 3 seconds before the next scan...
+[2025-02-12T16:21:37Z INFO  port_scanner] New open port detected: 5000: 5000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner] New open port detected: 7000: 7000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner] New open port detected: 10000: 10000 (msty-loca 14424 (Started: Mon Feb 10 15:14:59 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner] New open port detected: 15611: 15611 (Postman 1296 (Started: Sat Feb  8 16:41:31 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner] New open port detected: 63643: 63643 (GitHub 37222 (Started: Tue Feb 11 03:11:58 2025)) -> No banner
+[2025-02-12T16:21:37Z INFO  port_scanner] New open port detected: 64994: 64994 (rapportd 1037 (Started: Sat Feb  8 16:41:06 2025)) -> 
+[2025-02-12T16:21:40Z INFO  port_scanner::core::port] 🎯 Port 5000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:40Z INFO  port_scanner::core::port] 🎯 Port 7000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:40Z INFO  port_scanner::core::port] 🎯 Port 10000 (msty-loca 14424 (Started: Mon Feb 10 15:14:59 2025)) open - No banner received
+[2025-02-12T16:21:40Z INFO  port_scanner::core::port] 🎯 Port 15611 (Postman 1296 (Started: Sat Feb  8 16:41:31 2025)) open - No banner received
+[2025-02-12T16:21:41Z INFO  port_scanner::core::port] 🎯 Port 63643 (GitHub 37222 (Started: Tue Feb 11 03:11:58 2025)) open - No banner received
+[2025-02-12T16:21:41Z INFO  port_scanner::core::port] 🎯 Port 64994 (rapportd 1037 (Started: Sat Feb  8 16:41:06 2025)) open - No banner received
+[2025-02-12T16:21:41Z INFO  port_scanner::core::port] ⏳ Waiting 3 seconds before the next scan...
+[2025-02-12T16:21:44Z INFO  port_scanner::core::port] 🎯 Port 5000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:44Z INFO  port_scanner::core::port] 🎯 Port 7000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:44Z INFO  port_scanner::core::port] 🎯 Port 10000 (msty-loca 14424 (Started: Mon Feb 10 15:14:59 2025)) open - No banner received
+[2025-02-12T16:21:45Z INFO  port_scanner::core::port] 🎯 Port 15611 (Postman 1296 (Started: Sat Feb  8 16:41:31 2025)) open - No banner received
+[2025-02-12T16:21:45Z INFO  port_scanner::core::port] 🎯 Port 63643 (GitHub 37222 (Started: Tue Feb 11 03:11:58 2025)) open - No banner received
+[2025-02-12T16:21:45Z INFO  port_scanner::core::port] 🎯 Port 64994 (rapportd 1037 (Started: Sat Feb  8 16:41:06 2025)) open - Banner: 
+[2025-02-12T16:21:45Z INFO  port_scanner::core::port] ⏳ Waiting 3 seconds before the next scan...
+[2025-02-12T16:21:49Z INFO  port_scanner::core::port] 🎯 Port 5000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:49Z INFO  port_scanner::core::port] 🎯 Port 7000 (ControlCe 1249 (Started: Sat Feb  8 16:41:13 2025)) open - No banner received
+[2025-02-12T16:21:49Z INFO  port_scanner::core::port] 🎯 Port 10000 (msty-loca 14424 (Started: Mon Feb 10 15:14:59 2025)) open - No banner received
+[2025-02-12T16:21:49Z INFO  port_scanner::core::port] 🎯 Port 15611 (Postman 1296 (Started: Sat Feb  8 16:41:31 2025)) open - No banner received
+[2025-02-12T16:21:50Z INFO  port_scanner::core::port] 🎯 Port 63643 (GitHub 37222 (Started: Tue Feb 11 03:11:58 2025)) open - No banner received
+[2025-02-12T16:21:50Z INFO  port_scanner::core::port] 🎯 Port 64994 (rapportd 1037 (Started: Sat Feb  8 16:41:06 2025)) open - Banner: 
+[2025-02-12T16:21:50Z INFO  port_scanner::core::port] ⏳ Waiting 3 seconds before the next scan...
+[2025-02-12T16:21:52Z INFO  port_scanner] User pressed 'q', exiting...
