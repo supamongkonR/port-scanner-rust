@@ -29,10 +29,12 @@ The **Async Port Scanner** is a Rust-based network scanning tool that leverages 
    ```bash
    git clone https://github.com/yourusername/async-port-scanner.git
    ```
+
    ```bash
-   cd async-port-scanner
-   cargo run
+   cd async-port-scanner-rust
+   cargo run --bin port-scanner
    ```
 
-## Example 
+## Example
+
 <img width="974" alt="image" src="https://github.com/user-attachments/assets/de886283-b995-486b-9b60-d62ebc6a1975" />
