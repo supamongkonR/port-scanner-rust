@@ -31,7 +31,6 @@ The **Async Port Scanner** is a Rust-based network scanning tool that leverages 
    ```
    ```bash
    cd async-port-scanner
-   cargo install
    cargo run
    ```
 
