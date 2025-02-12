@@ -2,9 +2,10 @@ use crossterm::{
     event, execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
+use dotenvy::dotenv;
 use log::info;
 use ratatui::{backend::CrosstermBackend, Terminal};
-use std::{io, time::Duration};
+use std::{env, io, time::Duration};
 use tokio::{select, sync::mpsc, time::sleep};
 mod core;
 mod logs;
@@ -13,8 +14,8 @@ mod ui;
 #[tokio::main]
 async fn main() -> io::Result<()> {
     logs::log::init_logger();
-
-    let ip = "127.0.0.1";
+    dotenv().ok();
+    let ip = env::var("IP").unwrap();
 
     enable_raw_mode()?;
     let mut stdout = io::stdout();
@@ -24,7 +25,7 @@ async fn main() -> io::Result<()> {
 
     let (tx, mut rx) = mpsc::channel(100);
 
-    tokio::spawn(async move { core::port::scan_ports(tx, ip).await });
+    tokio::spawn(async move { core::port::scan_ports(tx, &ip).await });
 
     let mut results = vec![];
 

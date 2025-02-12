@@ -1,13 +1,12 @@
 use dotenvy::dotenv;
-use futures::future::join_all;
+use futures::stream::{self, StreamExt};
 use log::info;
 use std::{collections::BTreeMap, env, process::Command};
-use tokio::{io::AsyncWriteExt, net::TcpStream, sync::mpsc, task};
+use tokio::{io::AsyncWriteExt, net::TcpStream, sync::mpsc};
 
+/// Get process information by filtering out our own process using `lsof` and `ps`.
 fn get_process_info(port: u16) -> String {
-    // Get the PID of the scanning process.
     let our_pid = std::process::id();
-
     // Construct a shell command that:
     // - Lists processes using the port with lsof,
     // - Filters out any line containing our own PID,
@@ -27,7 +26,6 @@ fn get_process_info(port: u16) -> String {
         .expect("Failed to execute lsof command");
 
     let result = String::from_utf8_lossy(&output.stdout).trim().to_string();
-
     if result.is_empty() {
         return "Unknown Process".to_string();
     }
@@ -39,6 +37,8 @@ fn get_process_info(port: u16) -> String {
     format!("{} (Started: {})", process_info, start_time)
 }
 
+/// Identify the service running on a given port.
+/// Checks environment variables via a .env file first, then falls back to system process info.
 fn identify_service(port: u16) -> String {
     dotenv().ok();
     let key = format!("SERVICE_{}", port);
@@ -48,15 +48,19 @@ fn identify_service(port: u16) -> String {
     get_process_info(port)
 }
 
+/// Attempts to grab a banner from the given IP and port.
+/// For HTTP/HTTPS ports, it sends a basic HTTP HEAD request.
 pub async fn grab_banner(ip: &str, port: u16) -> Option<String> {
     let addr = format!("{}:{}", ip, port);
     if let Ok(mut stream) = TcpStream::connect(&addr).await {
         let service = identify_service(port);
-        // For HTTP/HTTPS ports, send a request to trigger a response.
         if port == 80 || port == 443 {
-            let _ = stream.write_all(b"HEAD / HTTP/1.1\r\n\r\n").await;
+            let _ = stream
+                .write_all(b"HEAD / HTTP/1.1\r\nHost: localhost\r\n\r\n")
+                .await;
         }
         let mut buffer = [0; 1024];
+
         if let Ok(size) = stream.try_read(&mut buffer) {
             let banner = String::from_utf8_lossy(&buffer[..size]).to_string();
             info!("🎯 Port {} ({}) open - Banner: {}", port, service, banner);
@@ -69,45 +73,32 @@ pub async fn grab_banner(ip: &str, port: u16) -> Option<String> {
 }
 
 /// Scan ports using async tasks with logging.
-/// Every 3 seconds, compare the working ports to a stored set so that you only send a notification
-/// (via `tx`) for ports that are newly discovered in the current scan.
+/// Every 3 seconds, compare the current open ports with a stored set and send a notification
+/// (via `tx`) for ports that are newly discovered or have closed.
 pub async fn scan_ports(tx: mpsc::Sender<String>, ip: &str) {
     let mut seen_ports: BTreeMap<u16, String> = BTreeMap::new();
 
     loop {
-        let mut new_ports: BTreeMap<u16, String> = BTreeMap::new();
-        let mut tasks = Vec::new();
-
-        for port in 1..=65535 {
-            let ip_clone = ip.to_string();
-            let task = task::spawn(async move {
-                if let Some(banner) = grab_banner(&ip_clone, port).await {
-                    Some((port, banner))
-                } else {
-                    None
-                }
-            });
-            tasks.push(task);
-
-            if tasks.len() >= 100 {
-                let results = join_all(tasks.drain(..)).await;
-                for res in results {
-                    if let Ok(Some((port, banner))) = res {
-                        new_ports.insert(port, banner);
+        let new_ports: BTreeMap<u16, String> = stream::iter(1..=65535)
+            .map(|port| {
+                let ip_clone = ip.to_string();
+                async move {
+                    if let Some(banner) = grab_banner(&ip_clone, port).await {
+                        Some((port, banner))
+                    } else {
+                        None
                     }
                 }
-            }
-        }
+            })
+            .buffer_unordered(100)
+            .filter_map(|res| async move { res })
+            .fold(BTreeMap::new(), |mut acc, (port, banner)| async move {
+                acc.insert(port, banner);
+                acc
+            })
+            .await;
 
-        if !tasks.is_empty() {
-            let results = join_all(tasks.drain(..)).await;
-            for res in results {
-                if let Ok(Some((port, banner))) = res {
-                    new_ports.insert(port, banner);
-                }
-            }
-        }
-
+        // Notify for newly discovered open ports.
         for (port, banner) in &new_ports {
             if !seen_ports.contains_key(port) {
                 info!("New open port detected: {}: {}", port, banner);
@@ -117,6 +108,7 @@ pub async fn scan_ports(tx: mpsc::Sender<String>, ip: &str) {
             }
         }
 
+        // Optionally notify for ports that have closed.
         for port in seen_ports.keys() {
             if !new_ports.contains_key(port) {
                 info!("Port {} closed", port);
