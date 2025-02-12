@@ -2,13 +2,12 @@ use ratatui::{
     backend::CrosstermBackend,
     layout::{Constraint, Direction, Layout},
     style::{Color, Modifier, Style},
-    text::{Line, Span}, // ✅ Updated import
+    text::{Line, Span},
     widgets::{Block, Borders, List, ListItem, Paragraph},
     Terminal,
 };
 use std::io;
 
-/// Displays results in `ratatui` UI.
 pub fn draw_ui(
     terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
     results: &[String],
